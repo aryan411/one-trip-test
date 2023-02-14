@@ -4,8 +4,8 @@ pipeline {
         stage('Build Docker image'){
             steps {
                 echo "Hello"
-                sh 'ls'
-                sh 'docker images'
+                sh 'whoami'
+                sh 'sudo docker images'
                 sh 'sudo docker build -t  onetrip/docker_jenkins_react:${BUILD_NUMBER} .'
             }
         }
