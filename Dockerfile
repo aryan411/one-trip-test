@@ -16,7 +16,7 @@
 #     && sed -i "s/Listen 80/Listen \${PORT}/g" /usr/local/apache2/conf/httpd.conf
 
 # stage1 - build react app first 
-FROM node:16.x-buster as build
+FROM node:16-alpine as build
 WORKDIR /onetrip-test
 ENV PATH /onetrip-test/node_modules/.bin:$PATH
 COPY ./package.json /onetrip-test/
@@ -26,7 +26,7 @@ COPY . /onetrip-test
 RUN npm run build
 
 # stage 2 - build the final image and copy the react build files
-FROM nginx:latest
+FROM nginx:1.21-alpine
 COPY --from=build /onetrip-test/build /usr/share/nginx/html
 RUN rm /etc/nginx/conf.d/default.conf
 COPY nginx/nginx.conf /etc/nginx/conf.d
