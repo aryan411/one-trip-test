@@ -16,7 +16,7 @@
 #     && sed -i "s/Listen 80/Listen \${PORT}/g" /usr/local/apache2/conf/httpd.conf
 
 # stage1 - build react app first 
-FROM node:16-alpine as build
+FROM node:18.14.0 as build
 WORKDIR /onetrip-test
 ENV PATH /onetrip-test/node_modules/.bin:$PATH
 COPY ./package.json /onetrip-test/
