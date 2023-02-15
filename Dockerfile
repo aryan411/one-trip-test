@@ -26,7 +26,7 @@ COPY . /onetrip-test
 RUN npm run build
 
 # stage 2 - build the final image and copy the react build files
-FROM nginx:1.19.x-alpine
+FROM nginx:latest
 COPY --from=build /onetrip-test/build /usr/share/nginx/html
 RUN rm /etc/nginx/conf.d/default.conf
 COPY nginx/nginx.conf /etc/nginx/conf.d
