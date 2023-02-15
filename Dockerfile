@@ -31,7 +31,8 @@ WORKDIR /onetrip-test
 ENV PATH /onetrip-test/node_modules/.bin:$PATH
 COPY ./package.json /onetrip-test/
 COPY ./package-lock.json /onetrip-test/
-RUN npm i
+run npm i npm@8.5.1
+RUN npm ci
 COPY . /onetrip-test
 RUN npm run build
 
