@@ -16,24 +16,24 @@
 #     && sed -i "s/Listen 80/Listen \${PORT}/g" /usr/local/apache2/conf/httpd.conf
 
 # stage1 - build react app first
-FROM node:18.14.0 as build
-WORKDIR /onetrip-test
-ENV PATH /onetrip-test/node_modules/.bin:$PATH
-COPY ./package.json /onetrip-test/
-COPY ./yarn.lock /app/
-RUN yarn
-COPY . /onetrip-test
-RUN yarn build
-
-# stage1 - build react app first 
 # FROM node:18.14.0 as build
 # WORKDIR /onetrip-test
 # ENV PATH /onetrip-test/node_modules/.bin:$PATH
 # COPY ./package.json /onetrip-test/
-# COPY ./package-lock.json /onetrip-test/
-# RUN npm ci
+# COPY ./yarn.lock /app/
+# RUN yarn
 # COPY . /onetrip-test
-# RUN npm run build
+# RUN yarn build
+
+# stage1 - build react app first 
+FROM node:18.14.0 as build
+WORKDIR /onetrip-test
+ENV PATH /onetrip-test/node_modules/.bin:$PATH
+COPY ./package.json /onetrip-test/
+COPY ./package-lock.json /onetrip-test/
+RUN npm i
+COPY . /onetrip-test
+RUN npm run build
 
 # stage 2 - build the final image and copy the react build files
 FROM nginx:1.21-alpine
